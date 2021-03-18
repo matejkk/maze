@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <title>Labirint</title>
+</head>
+<body>
+    <div id="img"><img src="slike/background.gif" alt=""></div>
+    <div id="gumbi">
+        <button onclick="start()" id="gumb1">Začni/Nadaljuj</button>
+        <button onclick="ustavi()" id="gumb2">Ustavi</button>
+        <button onclick="reset()" id="gumb3">Resetiraj</button>
+    </div>
+    <div id="maze">
+        <canvas id="canvas" width="970" height="970"></canvas>
+    </div>
+    <div id="refresh">
+        <button onclick="reload()" id="gumbr">Naloži nov labirint</button>
+    </div>
+    <script src="maze.js"></script>
+</body>
+</html>
