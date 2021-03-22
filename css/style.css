@@ -96,28 +96,53 @@ body{
 	top:1px;
 }
 
+#goback{
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+	background-color:#ededed;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:none;
+	cursor:pointer;
+	color:#777777;
+	font-family:Arial;
+	font-size:20px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+
+#goback:hover {
+	background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+	background-color:#dfdfdf;
+}
+
+#goback:active {
+	position:relative;
+	top:1px;
+}
+
 #typewriter h1 {
     display: block;
     color: black;
     font-family: monospace;
     font-size: 40px;
-    overflow: hidden; /* Ensures the content is not revealed until the animation */
-    border-right: .10em solid orange; /* The typwriter cursor */
-    white-space: nowrap; /* Keeps the content on a single line */
-    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-    letter-spacing: .10em; /* Adjust as needed */
+    overflow: hidden; 
+    border-right: .10em solid orange; 
+    white-space: nowrap; 
+    margin: 0 auto; 
+    letter-spacing: .10em; 
     animation: 
-      typing 4s steps(9, end),
+      typing 2.5s steps(9, end),
       blink-caret .5s step-end infinite;
   }
   
-  /* The typing effect */
   @keyframes typing {
     from { width: 0 }
     to { width: 100% }
   }
   
-  /* The typewriter cursor effect */
   @keyframes blink-caret {
     from, to { border-color: transparent }
     50% { border-color: orange }
