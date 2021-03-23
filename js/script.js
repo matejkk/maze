@@ -12,11 +12,10 @@ var cas = document.getElementById('cas');
 var glavni = document.getElementById('glavni');
 var play = document.getElementById('play');
 var back = document.getElementById('goback');
-var nextlevel = document.getElementById('nextlevel');
 var napis = document.getElementById('typewriter');
-var kvadrat=20;
+var gumbi = document.getElementById('gumbi');
 var konec = true;
-
+//timer
 var sekundeI;
 var minuteI;
 var sekunde = 0;
@@ -52,46 +51,38 @@ function init() {
     ctx = canvas.getContext("2d");
     var t = 0;
     if (t == 0) {
-        var stevilka = Math.floor(Math.random() *10+ 1);
+        var stevilka = Math.floor(Math.random() * 8 + 1);
         if (stevilka == 1) {
-            x = 420;
-            y = 648;
-        }
-        else if (stevilka == 2) {
             x = 295;
             y = 35;
         }
-        else if (stevilka == 3) {
-            x = 196;
-            y = 35;
-        }
-        else if (stevilka == 4) {
+        else if (stevilka == 2) {
             x = 100;
             y = 35;
         }
-        else if (stevilka == 5) {
+        else if (stevilka == 3) {
             x = 581;
             y = 35;
         }
-        else if (stevilka == 6) {
+        else if (stevilka == 4) {
             x = 612;
             y = 35;
         }
-        else if (stevilka == 7) {
+        else if (stevilka == 5) {
             x = 196;
             y = 35;
         }
-        else if (stevilka == 8) {
+        else if (stevilka == 6) {
             x = 645;
             y = 262;
         }
-        else if (stevilka == 9) {
-            x = 69;
-            y = 650;
+        else if (stevilka == 7) {
+            x = 30;
+            y = 645;
         }
-        else if (stevilka == 10) {
-            x = 325;
-            y = 35;
+        else if (stevilka == 8) {
+            x = 100;
+            y = 30;
         }
     }
     img.src = "mazes/maze" + stevilka + ".gif";
@@ -100,20 +91,49 @@ function init() {
 
 
 function checkcollision() {
-    var imgd = ctx.getImageData(x, y, kvadrat, kvadrat);
+    var imgd = ctx.getImageData(x, y, 20, 20);
     var pix = imgd.data;
     for (var i = 0; n = pix.length, i < n; i += 4) {
-        if (y > 660) {
+        if (x > 660 || y > 660) {
             konec = false;
             localStorage.setItem("time", izpisTimer);
-            x = 420;
-            y = 660;
             sweat();
             time = false;
             glavni.style.display = 'none';
-            nextlevel.style.display = 'block';
-            back.style.display = 'block';
-            izpisTimer="00:00";
+            back.style.display = 'none';
+            gumbi.style.height = '100vh';
+            if (stevilka == 1) {
+                x = 660;
+                y = 420;
+            }
+            else if (stevilka == 2) {
+                x = 660;
+                y = 610;
+            }
+            else if (stevilka == 3) {
+                x = 660;
+                y = 390;
+            }
+            else if (stevilka == 4) {
+                x = 660;
+                y = 450;
+            }
+            else if (stevilka == 5) {
+                x = 660;
+                y = 290;
+            }
+            else if (stevilka == 6) {
+                x = 490;
+                y = 660;
+            }
+            else if (stevilka == 7) {
+                x = 195;
+                y = 660;
+            }
+            else if (stevilka == 8) {
+                x = 580;
+                y = 660;
+            }
         }
         if (pix[i] == 0) {
             collision = 1;
@@ -124,14 +144,14 @@ function checkcollision() {
 function draw() {
     clear();
     ctx.fillStyle = "purple";
-    rect(x, y, kvadrat, kvadrat);
+    rect(x, y, 20, 20);
 }
 
 function doKeyDown(evt) {
     if (konec) {
         switch (evt.keyCode) {
             case 38:
-                time = true;  /* Up arrow was pressed */
+                time = true;  //gor
                 if (y - dy > 0) {
                     y -= dy;
                     clear();
@@ -144,7 +164,7 @@ function doKeyDown(evt) {
 
                 break;
             case 40:
-                time = true;  /* Down arrow was pressed */
+                time = true; //dol
                 if (y + dy < HEIGHT) {
                     y += dy;
                     clear();
@@ -157,7 +177,7 @@ function doKeyDown(evt) {
 
                 break;
             case 37:
-                time = true;  /* Left arrow was pressed */
+                time = true;  //levo
                 if (x - dx > 0) {
                     x -= dx;
                     clear();
@@ -169,7 +189,7 @@ function doKeyDown(evt) {
                 }
                 break;
             case 39:
-                time = true;  /* Right arrow was pressed */
+                time = true;  //desno
                 if ((x + dx < WIDTH)) {
                     x += dx;
                     clear();
@@ -189,29 +209,25 @@ window.addEventListener('keydown', doKeyDown, true);
 intervalTimer = setInterval(timer, 1000);
 
 function sweat() {
-    Swal.fire({
-        title: 'Bravo!',
-        text: 'You successfully completed the maze in: ' + localStorage.getItem("time"),
-        imageUrl: 'img/end.gif',
-        imageWidth: 400,
-        imageHeight: 200,
-        imageAlt: 'Custom image',
-    }).then(function () {
-        newlevel();
+    Swal.fire(
+        'Bravo!',
+        'You successfully completed the maze in: ' + localStorage.getItem("time"),
+        'success'
+    ).then(function () {
+        location.reload();
     });
 }
 
-function newlevel() {
-    Swal.fire('If you thought that was easy, I dare you to click next level.')
-    konec=true;
-}
 
 function game() {
     glavni.style.display = 'flex';
     play.style.display = 'none';
     napis.style.display = 'none';
+    gumbi.style.height = 'auto';
+    back.style.display = 'block';
 }
 
+//ozadje
 const colors = ["#3CC157", "#2AA7FF", "#1B1B1B", "#FCBC0F", "#F85F36"];
 
 const numBalls = 50;
@@ -243,7 +259,7 @@ balls.forEach((el, i, ra) => {
             { transform: `translate(${to.x}rem, ${to.y}rem)` }
         ],
         {
-            duration: (Math.random() + 1) * 2000, // random duration
+            duration: (Math.random() + 1) * 2000,
             direction: "alternate",
             fill: "both",
             iterations: Infinity,
@@ -251,27 +267,3 @@ balls.forEach((el, i, ra) => {
         }
     );
 });
-
-function tipkeDisable() {
-    window.addEventListener('keydown', function (event) {
-
-        // if the keyCode is 16 ( shift key was pressed )
-        if (event.keyCode === 40) {
-
-            // prevent default behaviour
-            event.preventDefault();
-
-            return false;
-        }
-
-    });
-}
-
-function hardmaze(){
-    glavni.style.display = 'flex';
-    img.src="mazes/maze11.gif";
-    localStorage.setItem("time", izpisTimer);
-    kvadrat=15;
-    x = 465;
-    y = 25;
-}
